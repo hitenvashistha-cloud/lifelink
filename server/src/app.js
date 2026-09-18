@@ -23,9 +23,8 @@ app.use(helmet());
 app.use(
   cors({
     origin: [
-      config.clientUrl,
       'http://localhost:5173',
-      'https://lifelink-client.vercel.app', // We'll update this after deploying frontend
+      'https://lifelink-client-three.vercel.app',
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
