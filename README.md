@@ -388,6 +388,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 **Hiten Vashistha**
 
 - GitHub: [@hitenvashistha-cloud](https://github.com/hitenvashistha-cloud)
+- LinkedIn: [@hitenvashistha](https://www.linkedin.com/in/hiten-vashistha-307514204/)
 - Email: hitenvashistha@gmail.com
 
 ---
