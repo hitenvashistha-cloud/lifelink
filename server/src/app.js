@@ -15,7 +15,7 @@ import adminRoutes from './routes/adminRoutes.js';
 import donationRoutes from './routes/donationRoutes.js';
 import campRoutes from './routes/campRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
-
+import analyticsRoutes from './routes/analyticsRoutes.js';
 const app = express();
 
 app.use(helmet());
@@ -67,6 +67,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/donations', donationRoutes);
 app.use('/api/camps', campRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
