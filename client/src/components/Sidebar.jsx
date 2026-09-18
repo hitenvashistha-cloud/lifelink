@@ -1,5 +1,19 @@
 import { Link, useLocation } from 'react-router-dom';
-import { FaHome, FaClipboardList, FaMapMarkerAlt, FaHistory, FaAward, FaUser, FaHospital, FaPlusCircle, FaBoxes, FaUsers, FaMapMarkedAlt, FaChartBar, FaCalendarAlt } from 'react-icons/fa';
+import {
+  FaHome,
+  FaClipboardList,
+  FaMapMarkerAlt,
+  FaHistory,
+  FaAward,
+  FaUser,
+  FaHospital,
+  FaPlusCircle,
+  FaBoxes,
+  FaUsers,
+  FaMapMarkedAlt,
+  FaChartBar,
+  FaCalendarAlt,
+} from 'react-icons/fa';
 
 function Sidebar({ role = 'donor' }) {
   const location = useLocation();
@@ -12,6 +26,7 @@ function Sidebar({ role = 'donor' }) {
     { path: '/nearby-requests', label: 'Near Me', icon: <FaMapMarkerAlt /> },
     { path: '/my-donations', label: 'My Donations', icon: <FaHistory /> },
     { path: '/donation-history', label: 'History', icon: <FaCalendarAlt /> },
+    { path: '/donor-analytics', label: 'My Impact', icon: <FaChartBar /> },
     { path: '/view-camps', label: 'Blood Camps', icon: <FaMapMarkedAlt /> },
     { path: '/profile', label: 'Profile', icon: <FaUser /> },
   ];
@@ -22,6 +37,7 @@ function Sidebar({ role = 'donor' }) {
     { path: '/hospital-requests', label: 'My Requests', icon: <FaClipboardList /> },
     { path: '/inventory', label: 'Inventory', icon: <FaBoxes /> },
     { path: '/record-donation', label: 'Record Donation', icon: <FaHospital /> },
+    { path: '/hospital-analytics', label: 'Analytics', icon: <FaChartBar /> },
     { path: '/profile', label: 'Profile', icon: <FaUser /> },
   ];
 
@@ -29,11 +45,13 @@ function Sidebar({ role = 'donor' }) {
     { path: '/admin-dashboard', label: 'Dashboard', icon: <FaHome /> },
     { path: '/admin-hospitals', label: 'Hospitals', icon: <FaHospital /> },
     { path: '/admin-users', label: 'Users', icon: <FaUsers /> },
+    { path: '/admin-analytics', label: 'Analytics', icon: <FaChartBar /> },
     { path: '/create-camp', label: 'Create Camp', icon: <FaCalendarAlt /> },
     { path: '/profile', label: 'Profile', icon: <FaUser /> },
   ];
 
-  const menu = role === 'admin' ? adminMenu : role === 'hospital' ? hospitalMenu : donorMenu;
+  const menu =
+    role === 'admin' ? adminMenu : role === 'hospital' ? hospitalMenu : donorMenu;
 
   return (
     <aside className="hidden lg:block w-64 bg-white border-r border-gray-100 min-h-[calc(100vh-4rem)] sticky top-16">
@@ -52,7 +70,11 @@ function Sidebar({ role = 'donor' }) {
                   : 'text-gray-600 hover:bg-gray-50 hover:text-red-600 hover:translate-x-0.5'
               }`}
             >
-              <span className={isActive(item.path) ? 'text-red-600' : 'text-gray-400'}>
+              <span
+                className={
+                  isActive(item.path) ? 'text-red-600' : 'text-gray-400'
+                }
+              >
                 {item.icon}
               </span>
               <span className="text-sm">{item.label}</span>
