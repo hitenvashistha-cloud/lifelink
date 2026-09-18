@@ -7,6 +7,7 @@ import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
 import EmptyState from '../components/common/EmptyState';
 import Loader from '../components/common/Loader';
+import { useToast } from '../context/ToastContext';
 import {
   FaClipboardList,
   FaTint,
@@ -21,7 +22,7 @@ function ViewRequestsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const { socket } = useSocket();
-
+  const toast = useToast();
   useEffect(() => {
     fetchRequests();
   }, []);
@@ -76,10 +77,10 @@ function ViewRequestsPage() {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert(response.data.message);
+      toast.success(response.data.message);
       fetchRequests();
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed to accept request');
+      toast.error(err.response?.data?.message || 'Failed to accept request');
     }
   };
 

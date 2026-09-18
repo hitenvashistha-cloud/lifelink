@@ -6,6 +6,7 @@ import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
 import EmptyState from '../components/common/EmptyState';
 import Loader from '../components/common/Loader';
+import { useToast } from '../context/ToastContext';
 import {
   FaBoxes,
   FaPlus,
@@ -25,7 +26,7 @@ function InventoryPage() {
     unitsAvailable: '',
     expiryDate: '',
   });
-
+  const toast = useToast();
   const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
   useEffect(() => {
@@ -57,12 +58,12 @@ function InventoryPage() {
       await axios.post('/api/inventory', formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      alert('Stock saved successfully');
+      toast.success('Stock saved successfully');
       setShowForm(false);
       setFormData({ bloodType: '', unitsAvailable: '', expiryDate: '' });
       fetchInventory();
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed');
+      toast.error(err.response?.data?.message || 'Failed');
     }
   };
 
@@ -75,7 +76,7 @@ function InventoryPage() {
       });
       fetchInventory();
     } catch (err) {
-      alert('Failed to delete');
+      toast.error('Failed to delete');
     }
   };
 

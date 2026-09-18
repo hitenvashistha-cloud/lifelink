@@ -8,6 +8,7 @@ import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
 import EmptyState from '../components/common/EmptyState';
 import Loader from '../components/common/Loader';
+import { useToast } from '../context/ToastContext';
 import {
   FaClipboardList,
   FaTint,
@@ -23,7 +24,7 @@ function HospitalRequestsPage() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { socket } = useSocket();
-
+  const toast = useToast();
   useEffect(() => {
     fetchRequests();
   }, []);
@@ -66,10 +67,10 @@ function HospitalRequestsPage() {
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert('Status updated');
+      toast.success('Status updated');
       fetchRequests();
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed to update');
+      toast.error(err.response?.data?.message || 'Failed to update');
     }
   };
 

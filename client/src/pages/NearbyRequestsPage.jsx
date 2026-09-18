@@ -8,6 +8,7 @@ import Button from '../components/common/Button';
 import EmptyState from '../components/common/EmptyState';
 import Loader from '../components/common/Loader';
 import MapView from '../components/MapView';
+import { useToast } from '../context/ToastContext';
 import {
   FaMapMarkerAlt,
   FaTint,
@@ -24,7 +25,7 @@ function NearbyRequestsPage() {
   const [userLocation, setUserLocation] = useState(null);
   const [noLocationSet, setNoLocationSet] = useState(false);
   const navigate = useNavigate();
-
+  const toast = useToast();
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -75,10 +76,10 @@ function NearbyRequestsPage() {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert(response.data.message);
+      toast.success(response.data.message);
       if (userLocation) fetchNearbyRequests(userLocation);
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed to accept');
+      toast.error(err.response?.data?.message || 'Failed to accept');
     }
   };
 

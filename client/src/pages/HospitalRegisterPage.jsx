@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useToast } from '../context/ToastContext';
 import axios from 'axios';
 
 function HospitalRegisterPage() {
@@ -18,7 +19,7 @@ function HospitalRegisterPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const toast = useToast();
   const hospitalTypes = ['Government', 'Private', 'Blood Bank', 'NGO'];
 
   const handleChange = (e) => {

@@ -5,7 +5,7 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import LocationPicker from '../components/LocationPicker';
-
+import { useToast } from '../context/ToastContext';
 function ProfilePage() {
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ function ProfilePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
+  const toast = useToast();
   const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   const hospitalTypes = ['Government', 'Private', 'Blood Bank', 'NGO'];
 
@@ -82,10 +82,9 @@ function ProfilePage() {
       const response = await axios.put('/api/auth/update-profile', payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      alert('Profile updated successfully');
-      window.location.reload();
+      toast.success('Profile updated successfully');
+      navigate(isHospital ? '/hospital-dashboard' : '/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to update profile');
     } finally {

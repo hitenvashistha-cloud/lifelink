@@ -5,7 +5,7 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import { FaHospital, FaUserCheck } from 'react-icons/fa';
-
+import { useToast } from '../context/ToastContext';
 function RecordDonationPage() {
   const [requests, setRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState('');
@@ -15,7 +15,7 @@ function RecordDonationPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
+  const toast = useToast();
   useEffect(() => {
     fetchRequests();
   }, []);
@@ -57,7 +57,7 @@ function RecordDonationPage() {
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert('Donation recorded successfully');
+      toast.success('Donation recorded successfully');
       navigate('/hospital-dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to record donation');

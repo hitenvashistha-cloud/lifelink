@@ -5,6 +5,7 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import { FaExclamationTriangle, FaMapMarkerAlt, FaPlusCircle } from 'react-icons/fa';
+import { useToast } from '../context/ToastContext';
 
 function CreateRequestPage() {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ function CreateRequestPage() {
   const [noLocationWarning, setNoLocationWarning] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const toast = useToast();
   const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   const urgencyLevels = ['Critical', 'High', 'Medium'];
 
@@ -59,7 +60,7 @@ function CreateRequestPage() {
       await axios.post('/api/requests', formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      alert('Emergency request created successfully');
+      toast.success('Emergency request created successfully');
       navigate('/hospital-requests');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create request');

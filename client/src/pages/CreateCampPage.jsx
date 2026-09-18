@@ -5,6 +5,7 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import { FaCalendarPlus } from 'react-icons/fa';
+import { useToast } from '../context/ToastContext';
 
 function CreateCampPage() {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ function CreateCampPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const toast = useToast();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -38,7 +39,7 @@ function CreateCampPage() {
       await axios.post('/api/camps', formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      alert('Blood camp created successfully');
+      toast.success('Blood camp created successfully');
       navigate('/admin-dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create camp');

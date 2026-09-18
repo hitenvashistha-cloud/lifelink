@@ -6,13 +6,14 @@ import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
 import EmptyState from '../components/common/EmptyState';
 import Loader from '../components/common/Loader';
+import { useToast } from '../context/ToastContext';
 import { FaHospital, FaCheckCircle, FaClock, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
 function AdminHospitalsPage() {
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
+  const toast = useToast();
   useEffect(() => {
     fetchHospitals();
   }, []);
@@ -39,10 +40,10 @@ function AdminHospitalsPage() {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert('Hospital approved successfully');
+      toast.success('Hospital approved successfully');
       fetchHospitals();
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed to approve');
+      toast.error(err.response?.data?.message || 'Failed to approve');
     }
   };
 

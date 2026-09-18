@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useToast } from '../context/ToastContext';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -17,6 +18,7 @@ function RegisterPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
@@ -36,7 +38,7 @@ function RegisterPage() {
       await axios.post('/api/auth/generate-otp', {
         phone: formData.phone,
       });
-      alert('OTP sent to your phone. Please check your SMS.');
+      toast.success('OTP sent to your phone. Please check your SMS.');
       setStep(2);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to send OTP');
